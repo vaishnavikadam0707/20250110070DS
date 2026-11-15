@@ -5,6 +5,7 @@ using namespace std;
 // PRN: 202501100070
 // Scenario: Cold-drink flavours
 // Hash Function: Division Method
+// Collision Strategy: Linear Probing
 
 const int SIZE = 23;
 
@@ -24,7 +25,6 @@ int main()
 
     int table[SIZE];
 
-    // Initialize hash table
     for (int i = 0; i < SIZE; i++)
     {
         table[i] = -1;
@@ -41,19 +41,26 @@ int main()
         cout << values[i] << " ";
     }
 
-    cout << "\n\nBASIC HASH TABLE INSERTION\n";
+    cout << "\n\nHASH TABLE INSERTION USING LINEAR PROBING\n";
 
     for (int i = 0; i < 20; i++)
     {
-        int index = hashFunction(values[i]);
+        int key = values[i];
+        int index = hashFunction(key);
 
-        if (table[index] != -1)
+        while (table[index] != -1)
         {
-            cout << "\nCollision at index "
-                 << index << endl;
+            cout << "Collision for " << key
+                 << " at index " << index << endl;
+
+            
+            index = (index + 2) % SIZE;
         }
 
-        table[index] = values[i];
+        table[index] = key;
+
+        cout << "Inserted " << key
+             << " at index " << index << endl;
     }
 
     cout << "\nFinal Hash Table:\n";
@@ -72,4 +79,5 @@ int main()
 
     return 0;
 }
+
 
