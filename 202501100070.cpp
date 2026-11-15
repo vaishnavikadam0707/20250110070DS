@@ -4,19 +4,42 @@ using namespace std;
 
 // PRN: 202501100070
 // Scenario: Cold-drink flavours
+// Dataset Size: 20
+// Hash Table Size: 23
 // Hash Function: Division Method
 // Collision Strategy: Linear Probing
 
 const int SIZE = 23;
+const int N = 20;
 
 int hashFunction(int key)
 {
     return key % SIZE;
 }
 
+void displayTable(int table[])
+{
+    cout << "\nFINAL HASH TABLE\n";
+    cout << "-------------------------\n";
+
+    cout << "Index\tValue\n";
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        cout << i << "\t";
+
+        if (table[i] == -1)
+            cout << "EMPTY";
+        else
+            cout << table[i];
+
+        cout << endl;
+    }
+}
+
 int main()
 {
-    int values[20] = {
+    int values[N] = {
         70, 83, 96, 9, 22,
         35, 48, 61, 74, 87,
         0, 13, 26, 39, 52,
@@ -36,49 +59,42 @@ int main()
 
     cout << "\nPersonalized Dataset:\n";
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < N; i++)
     {
         cout << values[i] << " ";
     }
 
-    cout << "\n\nHASH TABLE INSERTION USING LINEAR PROBING\n";
+    cout << "\n\nINSERTION TRACE\n";
+    cout << "-------------------------\n";
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < N; i++)
     {
         int key = values[i];
+
         int index = hashFunction(key);
+        int originalIndex = index;
 
         while (table[index] != -1)
         {
             cout << "Collision for " << key
                  << " at index " << index << endl;
 
-            // BUG FIXED
             index = (index + 1) % SIZE;
         }
 
         table[index] = key;
 
-        cout << "Inserted " << key
-             << " at index " << index << endl;
+        cout << "Key: " << key
+             << " | Hash Index: " << originalIndex
+             << " | Inserted At: " << index
+             << endl;
     }
 
-    cout << "\nFinal Hash Table:\n";
-
-    for (int i = 0; i < SIZE; i++)
-    {
-        cout << i << " : ";
-
-        if (table[i] == -1)
-            cout << "EMPTY";
-        else
-            cout << table[i];
-
-        cout << endl;
-    }
+    displayTable(table);
 
     return 0;
 }
+
 
 
 
