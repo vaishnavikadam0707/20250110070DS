@@ -53,8 +53,8 @@ int main()
             cout << "Collision for " << key
                  << " at index " << index << endl;
 
-            
-            index = (index + 2) % SIZE;
+            // BUG FIXED
+            index = (index + 1) % SIZE;
         }
 
         table[index] = key;
@@ -79,5 +79,6 @@ int main()
 
     return 0;
 }
+
 
 
