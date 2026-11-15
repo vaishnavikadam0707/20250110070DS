@@ -4,11 +4,17 @@ using namespace std;
 
 // PRN: 202501100070
 // Scenario: Cold-drink flavours
+// Hash Function: Division Method
+
+const int SIZE = 23;
+
+int hashFunction(int key)
+{
+    return key % SIZE;
+}
 
 int main()
 {
-    const int SIZE = 23;
-
     int values[20] = {
         70, 83, 96, 9, 22,
         35, 48, 61, 74, 87,
@@ -27,7 +33,16 @@ int main()
         cout << values[i] << " ";
     }
 
-    cout << endl;
+    cout << "\n\nDivision Method Hash Calculation:\n";
+
+    for (int i = 0; i < 20; i++)
+    {
+        cout << "Key: " << values[i]
+             << " -> Index: "
+             << hashFunction(values[i])
+             << endl;
+    }
 
     return 0;
 }
+
